@@ -247,12 +247,38 @@ class CameraApp {
         throw new Error("No camera devices found.");
       }
 
+      // スマホかどうか判定
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      // カメラの facingMode 情報を取得
+      let rearCameraIndex = -1;
+      let frontCameraIndex = -1;
+
       videoDevices.forEach((device, index) => {
         const option = document.createElement("option");
         option.value = device.deviceId;
-        option.text = device.label || `Camera ${index + 1}`;
+        // ラベルが取得できない場合は推測
+        let label = device.label || `Camera ${index + 1}`;
+        if (isMobile) {
+          // ラベルに "back" や "rear" が含まれていればリアカメラ
+          if (/back|rear|environment/i.test(label)) {
+            rearCameraIndex = index;
+          }
+          // ラベルに "front" や "user" が含まれていればフロントカメラ
+          if (/front|user/i.test(label)) {
+            frontCameraIndex = index;
+          }
+        }
+        option.text = label;
         this.cameraSelect.appendChild(option);
       });
+
+      // スマホの場合はリアカメラをデフォルト選択
+      if (isMobile && rearCameraIndex !== -1) {
+        this.cameraSelect.selectedIndex = rearCameraIndex;
+      } else {
+        this.cameraSelect.selectedIndex = 0;
+      }
     } catch (err) {
       throw new Error(`Failed to enumerate devices: ${err.message}`);
     }
@@ -270,16 +296,30 @@ class CameraApp {
         this.liveRequestId = null;
     }
 
-    const selectedDeviceId = this.cameraSelect.value;
-    const constraints = {
-      video: {
-        deviceId: selectedDeviceId ? { exact: selectedDeviceId } : undefined,
-         // Optional: Request specific resolution if needed
-         // width: { ideal: 1280 },
-         // height: { ideal: 720 }
-      },
+    // スマホの場合は facingMode でリア/フロントを指定
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    let selectedDeviceId = this.cameraSelect.value;
+    let constraints = {
+      video: {},
       audio: false
     };
+
+    if (isMobile) {
+      // 選択肢のラベルからフロント/リアを推測
+      const selectedOption = this.cameraSelect.options[this.cameraSelect.selectedIndex];
+      const label = selectedOption ? selectedOption.text.toLowerCase() : "";
+      if (/back|rear|environment/.test(label)) {
+        constraints.video.facingMode = { exact: "environment" };
+      } else if (/front|user/.test(label)) {
+        constraints.video.facingMode = { exact: "user" };
+      } else if (selectedDeviceId) {
+        constraints.video.deviceId = { exact: selectedDeviceId };
+      }
+    } else {
+      if (selectedDeviceId) {
+        constraints.video.deviceId = { exact: selectedDeviceId };
+      }
+    }
 
     try {
       this.currentStream = await navigator.mediaDevices.getUserMedia(constraints);
