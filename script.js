@@ -260,7 +260,7 @@ class CameraApp {
         // ラベルが取得できない場合は推測
         let label = device.label || `Camera ${index + 1}`;
         if (isMobile) {
-          // ラベルに "back" や "rear" が含まれていればリアカメラ
+          // ラベルに "back" や "rear" や "environment" が含まれていればリアカメラ
           if (/back|rear|environment/i.test(label)) {
             rearCameraIndex = index;
           }
@@ -273,7 +273,7 @@ class CameraApp {
         this.cameraSelect.appendChild(option);
       });
 
-      // スマホの場合はリアカメラをデフォルト選択
+      // スマホの場合はリアカメラをデフォルト選択（なければ0番目）
       if (isMobile && rearCameraIndex !== -1) {
         this.cameraSelect.selectedIndex = rearCameraIndex;
       } else {
@@ -305,7 +305,7 @@ class CameraApp {
     };
 
     if (isMobile) {
-      // 選択肢のラベルからfront/backを判別し、facingModeのみ指定
+      // 初回起動時はリアカメラ優先で指定
       const selectedOption = this.cameraSelect.options[this.cameraSelect.selectedIndex];
       const label = selectedOption ? selectedOption.text.toLowerCase() : "";
       if (/back|rear|environment/.test(label)) {
@@ -313,7 +313,8 @@ class CameraApp {
       } else if (/front|user/.test(label)) {
         constraints.video = { facingMode: { exact: "user" } };
       } else {
-        constraints.video = true; // fallback
+        // 選択肢にリアカメラがなければ environment を優先
+        constraints.video = { facingMode: { exact: "environment" } };
       }
     } else {
       // PCはdeviceIdのみ指定
