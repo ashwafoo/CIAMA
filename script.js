@@ -305,20 +305,19 @@ class CameraApp {
     };
 
     if (isMobile) {
-      // 選択肢のラベルからフロント/リアを推測
+      // 選択肢のラベルからfront/backを判別し、facingModeのみ指定
       const selectedOption = this.cameraSelect.options[this.cameraSelect.selectedIndex];
       const label = selectedOption ? selectedOption.text.toLowerCase() : "";
       if (/back|rear|environment/.test(label)) {
-        constraints.video.facingMode = { exact: "environment" };
+        constraints.video = { facingMode: { exact: "environment" } };
       } else if (/front|user/.test(label)) {
-        constraints.video.facingMode = { exact: "user" };
-      } else if (selectedDeviceId) {
-        constraints.video.deviceId = { exact: selectedDeviceId };
+        constraints.video = { facingMode: { exact: "user" } };
+      } else {
+        constraints.video = true; // fallback
       }
     } else {
-      if (selectedDeviceId) {
-        constraints.video.deviceId = { exact: selectedDeviceId };
-      }
+      // PCはdeviceIdのみ指定
+      constraints.video = { deviceId: { exact: selectedDeviceId } };
     }
 
     try {
