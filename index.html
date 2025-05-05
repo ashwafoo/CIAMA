@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>画像面積測定アプリ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>画像面積測定アプリ</h1>
+      <div style="margin-top:10px;">
+        <a href="help.html" target="_blank" style="color:#007bff;text-decoration:underline;font-size:1em;">ヘルプを見る</a>
+      </div>
+    </header>
+
+    <div id="error" class="error"></div>
+    <div id="displayArea">
+      <video id="video" autoplay playsinline></video>
+      <canvas id="liveCanvas"></canvas>
+      <canvas id="processedCanvas"></canvas>
+      <div id="imageTransformControls" style="display: none; margin-top: 10px;"></div>
+    </div>
+
+    <div class="controls">
+      <select id="cameraSelect" title="使用するカメラを選択"></select>
+      <button id="captureBtn">写真を撮影</button>
+      <button id="saveBtn" disabled>画像を保存</button>
+      <button id="loadImageBtn" type="button">画像を読み込む</button>
+      <input type="file" id="imageFileInput" accept="image/*" style="display:none;">
+    </div>
+
+    <div class="section" id="hsvControls">
+      <h2 style="display: flex; align-items: center; gap: 16px;">
+        HSVフィルター設定
+        <span style="display: flex; gap: 8px; margin-left: 16px;">
+          <button id="loadConfigBtn" type="button">設定インポート</button>
+          <button id="exportConfigBtn" type="button">設定エクスポート</button>
+          <button id="resetConfigBtn" type="button">リセット</button>
+          <input type="file" id="configFileInput" accept=".json" style="display:none;">
+        </span>
+      </h2>
+      <div class="slider-group">
+        <label for="hueLow">Hue（色相） Low (<span id="hueLowVal">0</span>):</label>
+        <input type="range" id="hueLow" min="0" max="179" value="0">
+      </div>
+      <div class="slider-group">
+        <label for="hueHigh">Hue（色相） High (<span id="hueHighVal">10</span>):</label>
+        <input type="range" id="hueHigh" min="0" max="179" value="10">
+      </div>
+      <div class="slider-group">
+        <label for="satLow">Saturation（彩度） Low (<span id="satLowVal">100</span>):</label>
+        <input type="range" id="satLow" min="0" max="255" value="100">
+      </div>
+      <div class="slider-group">
+        <label for="satHigh">Saturation（彩度） High (<span id="satHighVal">255</span>):</label>
+        <input type="range" id="satHigh" min="0" max="255" value="255">
+      </div>
+      <div class="slider-group">
+        <label for="valLow">Value（明度） Low (<span id="valLowVal">100</span>):</label>
+        <input type="range" id="valLow" min="0" max="255" value="100">
+      </div>
+      <div class="slider-group">
+        <label for="valHigh">Value（明度） High (<span id="valHighVal">255</span>):</label>
+        <input type="range" id="valHigh" min="0" max="255" value="255">
+      </div>
+      <div class="slider-group">
+        <label style="width:auto;">
+          <input type="checkbox" id="invertMask">
+          マスク範囲を反転する
+        </label>
+      </div>
+    </div>
+
+    <div class="section" id="rectToggleSection">
+      <h2>表示設定</h2>
+      <label>
+        <input type="checkbox" id="toggleRect" checked>
+        中央に赤枠を表示する
+      </label>
+      <div id="rectSizeSelector" class="rect-size-options">
+        <label style="width: auto; margin-right: 10px;">矩形サイズ:</label>
+        <button class="rect-size-btn active" data-width="400" data-height="200" title="幅400 x 高さ200">50mm</button>
+        <button class="rect-size-btn" data-width="400" data-height="128" title="幅400 x 高さ128">32mm</button>
+        <button class="rect-size-btn" data-width="400" data-height="100" title="幅400 x 高さ100">25mm</button>
+        <button class="rect-size-btn" data-width="400" data-height="76" title="幅400 x 高さ76">19mm</button>
+      </div>
+    </div>
+
+    <div class="section" id="shortcutSection">
+      <h2>ショートカットキー設定</h2>
+      <label>
+        <input type="checkbox" id="shortcutToggle">
+        ショートカットキーを有効にする（スペース:撮影 / Enter:保存）
+      </label>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
