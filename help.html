@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>画像面積測定アプリ ヘルプ</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+    }
+    h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 24px;
+    }
+    h2 {
+      color: #555;
+      margin-top: 2em;
+      margin-bottom: 0.5em;
+    }
+    ul, ol {
+      margin-left: 1.5em;
+    }
+    code {
+      background: #f3f3f3;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.95em;
+    }
+    .btn {
+      display: inline-block;
+      background: #007bff;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-top: 10px;
+      font-size: 1em;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    .note {
+      background: #e9ecef;
+      border-left: 4px solid #007bff;
+      padding: 10px 16px;
+      margin: 18px 0;
+      border-radius: 4px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>画像面積測定アプリ ヘルプ</h1>
+
+    <p>
+      このアプリは、Webカメラまたは画像ファイルから画像を取得し、HSVフィルターを適用して矩形領域の面積割合を計算・保存できるWebアプリです。
+    </p>
+
+    <h2>主な機能</h2>
+    <ul>
+      <li>カメラ選択・ライブプレビュー・写真撮影</li>
+      <li>画像ファイルの読み込み（縦横比を維持し高さ720px以下に自動リサイズ）</li>
+      <li>HSVフィルター（Hue/Saturation/Valueの範囲指定）</li>
+      <li>マスク範囲の反転（ON/OFF）</li>
+      <li>矩形サイズ選択・赤枠表示</li>
+      <li>撮影画像・処理画像・CSVデータの保存</li>
+      <li>HSV設定のインポート・エクスポート・リセット</li>
+      <li>画像の拡大・縮小・移動・リセット（画像読込時）</li>
+      <li>ショートカットキー（スペース:撮影 / Enter:保存）の有効化</li>
+    </ul>
+
+    <h2>使い方</h2>
+    <ol>
+      <li>「使用するカメラを選択」でカメラを選びます。</li>
+      <li>ライブ映像を確認し、「写真を撮影」ボタンで静止画を取得します。</li>
+      <li>または「画像を読み込む」ボタンから画像ファイルを選択します。<br>
+        ※画像ファイルは縦横比を維持したまま高さ720px以下に自動リサイズされます。
+      </li>
+      <li>必要に応じてHSVフィルターの値をスライダーで調整します。</li>
+      <li>「マスク範囲を反転する」チェックでマスクのON/OFFを切り替えられます。</li>
+      <li>「中央に赤枠を表示する」チェックで矩形枠の表示ON/OFF、「矩形サイズ」ボタンで枠サイズを変更できます。</li>
+      <li>「画像を保存」ボタンで、オリジナル画像・処理画像・CSVデータを保存できます。</li>
+      <li>
+        <b>HSVフィルター設定</b>のボタン説明:
+        <ul>
+          <li><b>設定インポート</b>: 外部JSONファイルからHSV設定を読み込みます。</li>
+          <li><b>設定エクスポート</b>: 現在のHSV設定・マスク反転状態をJSONファイルとして保存します。</li>
+          <li><b>リセット</b>: HSV設定値を初期値に戻します。</li>
+        </ul>
+      </li>
+      <li>
+        画像読込時は「拡大」「縮小」「リセット」ボタンや、画像上でドラッグ・ホイール操作で画像の拡大縮小・移動ができます。
+      </li>
+      <li>
+        「ショートカットキーを有効にする」をONにすると、<b>スペースキー</b>で撮影、<b>Enterキー</b>で保存ができます。
+      </li>
+    </ol>
+
+    <h2>画像リサイズについて</h2>
+    <ul>
+      <li>画像ファイルを読み込むと、縦横比を維持したまま高さが最大720pxになるよう自動リサイズされます。</li>
+      <li>元画像の高さが720px以下の場合はリサイズされません。</li>
+      <li>リサイズ後の画像はキャンバス上に表示され、拡大・縮小・移動も可能です。</li>
+    </ul>
+
+    <h2>CSVデータについて</h2>
+    <p>
+      保存されるCSVには、ファイル名・撮影日時・HSV値・矩形サイズ・面積割合・マスク反転フラグが記録されます。
+    </p>
+
+    <h2>HSV設定ファイルについて</h2>
+    <ul>
+      <li>JSON形式で、<code>hueLow</code>, <code>hueHigh</code>, <code>satLow</code>, <code>satHigh</code>, <code>valLow</code>, <code>valHigh</code>, <code>invertMask</code> の各値を持ちます。</li>
+      <li>例:
+        <pre>{
+  "hueLow": 0,
+  "hueHigh": 10,
+  "satLow": 100,
+  "satHigh": 255,
+  "valLow": 100,
+  "valHigh": 255,
+  "invertMask": false
+}</pre>
+      </li>
+      <li>「設定インポート」で読み込み、「設定エクスポート」で保存できます。</li>
+    </ul>
+
+    <h2>よくある質問</h2>
+    <ul>
+      <li><b>Q: カメラが表示されない/選択できない</b><br>
+        A: ブラウザのカメラ利用許可を確認してください。カメラが接続されているかもご確認ください。
+      </li>
+      <li><b>Q: 画像やCSVが保存できない</b><br>
+        A: ブラウザのダウンロード制限やポップアップブロックを確認してください。
+      </li>
+      <li><b>Q: 設定ファイルの形式が分からない</b><br>
+        A: 上記「HSV設定ファイルについて」をご参照ください。
+      </li>
+      <li><b>Q: 画像リサイズの仕様を知りたい</b><br>
+        A: 画像ファイル読み込み時、高さが720pxを超える場合は縦横比を維持して高さ720pxに縮小されます。横幅は自動計算されます。
+      </li>
+    </ul>
+
+    <div class="note">
+      <b>ご注意:</b> 本アプリはWebブラウザ上で動作します。カメラやファイル保存機能はご利用のブラウザ・OS環境に依存します。
+    </div>
+
+    <!-- ライセンス情報 -->
+    <h2>ライセンス情報</h2>
+    <p>
+      本アプリに使用されている OpenCV のコードは、<a href="https://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache License 2.0</a> の下で提供されています。<br>
+      本アプリでは、JavaScriptライブラリとしてCDN経由でOpenCVを利用しているため、配布ファイルに関しては該当ライセンスの取り扱いに従っています。
+    </p>
+    <!-- /ライセンス情報 -->
+    
+     <small>Copyright 2025 S.Munechika</small>
+
+
+    <!--
+    <div style="text-align:center; margin-top:2em;">
+      <a href="ImgAreaMeasApp.html" class="btn">アプリに戻る</a>
+    -->
+    
+  </div>
+</body>
+</html>

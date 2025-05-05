@@ -1,0 +1,149 @@
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+header {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+#displayArea {
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+  background-color: #000;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Canvasがはみ出さないように */
+}
+#video {
+  display: none;
+}
+#liveCanvas, #processedCanvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+#processedCanvas {
+  display: none;
+}
+.controls, .section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+}
+h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #555;
+}
+button, select {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+button:hover, button:focus {
+  background-color: #0056b3;
+  outline: none;
+}
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+select {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 10px;
+}
+.slider-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.slider-group label {
+  display: inline-block;
+  width: 220px; /* 幅を広げて折り返しを防止 */
+  font-size: 0.95em;
+  white-space: nowrap; /* 折り返し防止 */
+}
+.slider-group input[type=range] {
+  flex-grow: 1;
+  min-width: 150px;
+  vertical-align: middle;
+}
+.slider-group span {
+    font-weight: bold;
+    min-width: 30px;
+    text-align: right;
+}
+#rectToggleSection label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-bottom: 10px; /* Added margin */
+}
+/* Added styles for rectangle size selection */
+.rect-size-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    margin-top: 10px;
+}
+.rect-size-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    background-color: #6c757d; /* Default button color */
+    border: 1px solid #6c757d;
+}
+.rect-size-btn.active {
+    background-color: #007bff; /* Active button color */
+    border-color: #0056b3;
+    font-weight: bold;
+}
+.error {
+  color: #dc3545;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  display: none;
+}
+/* 画像操作ボタンのスタイル（必要であれば追加） */
+#imageTransformControls button {
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  margin-right: 5px;
+}
