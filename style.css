@@ -20,6 +20,11 @@ header {
   border-bottom: 1px solid #eee;
   margin-bottom: 20px;
 }
+header h1 {
+  font-size: 1.5em;
+  margin: 0;
+  color: #007bff;
+}
 #displayArea {
   position: relative;
   width: 100%;
@@ -146,4 +151,80 @@ select {
   padding: 5px 10px;
   font-size: 0.9rem;
   margin-right: 5px;
+}
+
+/* --- スマートフォン・タブレット向けレスポンシブ調整 --- */
+@media (max-width: 600px) {
+  body {
+    padding: 8px;
+    font-size: 1.05em;
+  }
+  .container {
+    max-width: 100%;
+    padding: 8px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  header {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-size: 1.3em; /* スマートフォン用にh1を小さく */
+    margin-bottom: 6px;
+  }
+  #displayArea {
+    margin-bottom: 10px;
+    aspect-ratio: 4 / 3;
+    min-height: 180px;
+  }
+  #liveCanvas, #processedCanvas {
+    max-width: 100vw;
+    max-height: 60vw;
+  }
+  .controls, .section {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  button, select {
+    font-size: 1em;
+    padding: 10px 0;
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 4px;
+  }
+  .slider-group label {
+    width: 120px;
+    font-size: 1em;
+  }
+  .slider-group input[type=range] {
+    min-width: 80px;
+  }
+  .rect-size-options {
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .rect-size-btn {
+    font-size: 0.95em;
+    padding: 7px 10px;
+  }
+  h2 {
+    font-size: 1.05em;
+    margin-bottom: 10px;
+  }
+  #imageTransformControls {
+    font-size: 0.95em;
+    margin-top: 6px;
+  }
+  .error {
+    font-size: 1em;
+    padding: 8px;
+    margin-top: 10px;
+  }
 }
