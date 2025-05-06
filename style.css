@@ -187,16 +187,27 @@ select {
     padding-top: 10px;
   }
   .controls {
-    flex-direction: column;
+    flex-direction: row;         /* 横並びに変更 */
+    flex-wrap: nowrap;           /* 折り返し禁止 */
     align-items: stretch;
-    gap: 8px;
+    gap: 6px;                    /* ボタン間の隙間を調整 */
   }
-  button, select {
-    font-size: 0.5em;         /* 半分のフォントサイズ */
-    padding: 5px 0;           /* 上下のパディングも半分に */
-    width: 100%;
+  .controls select {
     min-width: 0;
-    margin-bottom: 4px;
+    width: auto;
+    margin-bottom: 0;
+    flex: 0 0 auto;
+  }
+  .controls button {
+    font-size: 0.5em;
+    padding: 5px 0;
+    min-width: 0;
+    width: 0;
+    flex: 1 1 0;                 /* 幅を均等に可変 */
+    margin-bottom: 0;
+  }
+  .controls input[type="file"] {
+    display: none;
   }
   .slider-group label {
     width: 120px;

@@ -25,18 +25,20 @@
 
     <div class="controls">
       <select id="cameraSelect" title="使用するカメラを選択"></select>
-      <button id="captureBtn">写真を撮影</button>
-      <button id="saveBtn" disabled>画像を保存</button>
-      <button id="loadImageBtn" type="button">画像を読み込む</button>
-      <input type="file" id="imageFileInput" accept="image/*" style="display:none;">
+        <span style="display: flex; gap: 8px; margin-left: 16px;"></span>
+          <button id="captureBtn">写真撮影</button>
+          <button id="saveBtn" disabled>画像保存</button>
+          <button id="loadImageBtn" type="button">画像読込</button>
+          <input type="file" id="imageFileInput" accept="image/*" style="display:none;">
+        </span>
     </div>
 
     <div class="section" id="hsvControls">
       <h2 style="display: flex; align-items: center; gap: 16px;">
         HSVフィルター設定
         <span style="display: flex; gap: 8px; margin-left: 16px;">
-          <button id="loadConfigBtn" type="button">設定インポート</button>
-          <button id="exportConfigBtn" type="button">設定エクスポート</button>
+          <button id="loadConfigBtn" type="button">設定IMP</button>
+          <button id="exportConfigBtn" type="button">設定EXP</button>
           <button id="resetConfigBtn" type="button">リセット</button>
           <input type="file" id="configFileInput" accept=".json" style="display:none;">
         </span>
