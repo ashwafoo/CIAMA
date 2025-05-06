@@ -192,8 +192,8 @@ select {
     gap: 8px;
   }
   button, select {
-    font-size: 1em;
-    padding: 10px 0;
+    font-size: 0.5em;         /* 半分のフォントサイズ */
+    padding: 5px 0;           /* 上下のパディングも半分に */
     width: 100%;
     min-width: 0;
     margin-bottom: 4px;
@@ -211,8 +211,8 @@ select {
     margin-top: 6px;
   }
   .rect-size-btn {
-    font-size: 0.95em;
-    padding: 7px 10px;
+    font-size: 0.475em;       /* 半分のフォントサイズ */
+    padding: 3.5px 5px;       /* パディングも半分に */
   }
   h2 {
     font-size: 1.05em;
