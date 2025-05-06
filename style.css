@@ -202,9 +202,16 @@ select {
     font-size: 0.5em;
     padding: 5px 0;
     min-width: 0;
-    width: 0;
-    flex: 1 1 0;                 /* 幅を均等に可変 */
-    margin-bottom: 0;
+    width: auto;
+  }
+  /* HSVフィルター設定内の3ボタンだけ半分サイズに */
+  #loadConfigBtn,
+  #exportConfigBtn,
+  #resetConfigBtn {
+    font-size: 0.5em !important;
+    padding: 5px 0 !important;
+    min-width: 0 !important;
+    width: auto !important;
   }
   .controls input[type="file"] {
     display: none;
